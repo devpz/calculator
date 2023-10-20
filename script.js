@@ -7,7 +7,7 @@ let currentOperator = "";
 function buttonClick(event) {
   const buttonValue = event.target.textContent;
 
-  if (buttonValue >= "0" && buttonValue <= "9") {
+  if ((buttonValue >= "0" && buttonValue <= "9") || buttonValue === ".") {
     currentInput += buttonValue;
   } else if (
     buttonValue === "+" ||
