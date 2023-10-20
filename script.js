@@ -29,6 +29,9 @@ function buttonClick(event) {
     currentOperator = "";
   } else if (buttonValue === "(" || buttonValue === ")") {
     currentInput += buttonValue;
+  } else if (buttonValue === "←") {
+    // Usuwanie ostatniego znaku
+    currentInput = currentInput.slice(0, -1);
   }
 
   resultElement.value = currentInput;
