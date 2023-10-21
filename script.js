@@ -37,10 +37,18 @@ function buttonClick(event) {
     // Usuwanie ostatniego znaku
     currentInput = currentInput.slice(0, -1);
     decimalAdded = currentInput.includes(".");
-  } else if (buttonValue === "." && !decimalAdded) {
+  } else if (buttonValue === ".") {
     // Obsługa liczby dziesiętnej
-    currentInput += buttonValue;
-    decimalAdded = true;
+    if (!decimalAdded) {
+      currentInput += buttonValue;
+      decimalAdded = true;
+    }
+  } else if (buttonValue === "%") {
+    // Obsługa procentów
+    if (currentInput !== "") {
+      const number = eval(currentInput);
+      currentInput = (number * 0.01).toString();
+    }
   }
 
   resultElement.value = currentInput;
