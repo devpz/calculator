@@ -1,4 +1,5 @@
 const resultElement = document.getElementById("result");
+const historyElement = document.getElementById("history");
 const buttons = document.querySelectorAll("button");
 
 let currentInput = "";
@@ -23,7 +24,9 @@ function buttonClick(event) {
     }
   } else if (buttonValue === "=") {
     if (currentInput !== "") {
-      currentInput = calculateExpression(currentInput);
+      const result = calculateExpression(currentInput);
+      historyElement.innerHTML += `${currentInput} = ${result}<br>`;
+      currentInput = result;
       currentOperator = "";
     }
   } else if (buttonValue === "C") {
@@ -34,17 +37,14 @@ function buttonClick(event) {
     currentInput += buttonValue;
     decimalAdded = false;
   } else if (buttonValue === "←") {
-    // Usuwanie ostatniego znaku
     currentInput = currentInput.slice(0, -1);
     decimalAdded = currentInput.includes(".");
   } else if (buttonValue === ".") {
-    // Obsługa liczby dziesiętnej
     if (!decimalAdded) {
       currentInput += buttonValue;
       decimalAdded = true;
     }
   } else if (buttonValue === "%") {
-    // Obsługa procentów
     if (currentInput !== "") {
       const number = eval(currentInput);
       currentInput = (number * 0.01).toString();
