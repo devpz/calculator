@@ -3,11 +3,12 @@ const buttons = document.querySelectorAll("button");
 
 let currentInput = "";
 let currentOperator = "";
+let decimalAdded = false;
 
 function buttonClick(event) {
   const buttonValue = event.target.textContent;
 
-  if ((buttonValue >= "0" && buttonValue <= "9") || buttonValue === ".") {
+  if (buttonValue >= "0" && buttonValue <= "9") {
     currentInput += buttonValue;
   } else if (
     buttonValue === "+" ||
@@ -18,6 +19,7 @@ function buttonClick(event) {
     if (currentInput !== "") {
       currentOperator = buttonValue;
       currentInput += buttonValue;
+      decimalAdded = false;
     }
   } else if (buttonValue === "=") {
     if (currentInput !== "") {
@@ -27,11 +29,18 @@ function buttonClick(event) {
   } else if (buttonValue === "C") {
     currentInput = "";
     currentOperator = "";
+    decimalAdded = false;
   } else if (buttonValue === "(" || buttonValue === ")") {
     currentInput += buttonValue;
+    decimalAdded = false;
   } else if (buttonValue === "←") {
     // Usuwanie ostatniego znaku
     currentInput = currentInput.slice(0, -1);
+    decimalAdded = currentInput.includes(".");
+  } else if (buttonValue === "." && !decimalAdded) {
+    // Obsługa liczby dziesiętnej
+    currentInput += buttonValue;
+    decimalAdded = true;
   }
 
   resultElement.value = currentInput;
