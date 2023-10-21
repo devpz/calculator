@@ -1,5 +1,6 @@
 const resultElement = document.getElementById("result");
 const historyElement = document.getElementById("history");
+const clearHistoryButton = document.getElementById("clearHistory");
 const buttons = document.querySelectorAll("button");
 
 let currentInput = "";
@@ -26,7 +27,7 @@ function buttonClick(event) {
     if (currentInput !== "") {
       const result = calculateExpression(currentInput);
       historyElement.innerHTML += `${currentInput} = ${result}<br>`;
-      currentInput = result;
+      currentInput = result.toString();
       currentOperator = "";
     }
   } else if (buttonValue === "C") {
@@ -61,6 +62,10 @@ function calculateExpression(expression) {
     return "Błąd";
   }
 }
+
+clearHistoryButton.addEventListener("click", function () {
+  historyElement.innerHTML = "";
+});
 
 buttons.forEach((button) => {
   button.addEventListener("click", buttonClick);
