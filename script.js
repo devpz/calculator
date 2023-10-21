@@ -1,7 +1,17 @@
 const resultElement = document.getElementById("result");
 const historyElement = document.getElementById("history");
-const clearHistoryButton = document.getElementById("clearHistory");
+const toggleHistoryButton = document.getElementById("toggleHistory");
 const buttons = document.querySelectorAll("button");
+let historyVisible = false;
+
+toggleHistoryButton.addEventListener("click", function () {
+  if (historyVisible) {
+    historyElement.style.display = "none";
+  } else {
+    historyElement.style.display = "block";
+  }
+  historyVisible = !historyVisible;
+});
 
 let currentInput = "";
 let currentOperator = "";
@@ -9,7 +19,10 @@ let decimalAdded = false;
 
 function buttonClick(event) {
   const buttonValue = event.target.textContent;
+  handleButton(buttonValue);
+}
 
+function handleButton(buttonValue) {
   if (buttonValue >= "0" && buttonValue <= "9") {
     currentInput += buttonValue;
   } else if (
@@ -62,10 +75,6 @@ function calculateExpression(expression) {
     return "Błąd";
   }
 }
-
-clearHistoryButton.addEventListener("click", function () {
-  historyElement.innerHTML = "";
-});
 
 buttons.forEach((button) => {
   button.addEventListener("click", buttonClick);
